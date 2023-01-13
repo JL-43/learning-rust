@@ -5,9 +5,21 @@ struct Rectangle{
     height: u32
 }
 
+// impl -> implementation = a method for a struct
 impl Rectangle {
     fn area(&self) -> u32{
         self.width*self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool{
+        self.width > other.width && self.height > other.height
+    }
+
+    // impl can also have "Associated Functions"
+    // they do not have to take "self" as a parameter but their return would be an instance of the struct
+
+    fn square(size: u32) -> Rectangle {
+        Rectangle{ width: size, height: size }
     }
 }
 
@@ -59,6 +71,21 @@ fn main() {
         "The area of the rectangle 4 is {} square pixels.",
         rect4.area()
     );
+
+    // Can hold? (impl)
+
+    let rect5 = Rectangle{width: 30, height: 50};
+    let rect6 = Rectangle{width: 10, height: 40};
+    let rect7 = Rectangle{width: 60, height: 45};
+
+    // println!("Can rect5 hold rect6? {}", &rect5.can_hold(&rect6)); // same as below
+    println!("Can rect5 hold rect6? {}", rect5.can_hold(&rect6));
+    println!("Can rect5 hold rect7? {}", rect5.can_hold(&rect7));
+
+    // using an associated function
+
+    let sq = Rectangle::square(3);
+    println!("A square: {:?}", sq);
 
 }
 
